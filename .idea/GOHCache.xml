@@ -28,6 +28,13 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/user_srv/handler/user.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1740292124437" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/user_srv/main.go">
           <value>
             <ScannedPath>
@@ -45,7 +52,7 @@
         <entry key="file://$PROJECT_DIR$/user_srv/model/main/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1740290168105" />
+              <option name="lastModified" value="1740291302161" />
             </ScannedPath>
           </value>
         </entry>

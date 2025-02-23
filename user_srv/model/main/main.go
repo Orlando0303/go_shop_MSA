@@ -1,11 +1,8 @@
 package main
 
 import (
-	"crypto/md5"
 	"crypto/sha512"
-	"encoding/hex"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"time"
@@ -15,14 +12,14 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
-	//"shop/user_srv/model"
+	"shop/user_srv/model"
 )
 
-func genMd5(code string) string {
+/*func genMd5(code string) string {
 	Md5 := md5.New()
 	_, _ = io.WriteString(Md5, code)
 	return hex.EncodeToString(Md5.Sum(nil))
-}
+}*/
 
 func main() {
 	dsn := "root:root@tcp(192.168.61.33:3306)/shop_user_srv?charset=utf8mb4&parseTime=True&loc=Local"
@@ -37,7 +34,7 @@ func main() {
 	)
 
 	// 全局模式
-	_, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
 		},
@@ -53,6 +50,15 @@ func main() {
 	salt, encodedPwd := password.Encode("admin123", options)
 	newPassword := fmt.Sprintf("$pbkdf2-sha512$%s$%s", salt, encodedPwd) //拼接加密后的密码
 	fmt.Println(newPassword)
+
+	for i := 0; i < 10; i++ {
+		user := model.User{
+			NickName: fmt.Sprintf("user%d", i),
+			Mobile:   fmt.Sprintf("1234567890%d", i),
+			Password: newPassword,
+		}
+		db.Save(&user)
+	}
 
 	//passwordInfo := strings.Split(newPassword, "$")
 	//fmt.Println(passwordInfo)
